@@ -13,9 +13,10 @@ body
 
 .botao
 {
-	margin: 7px 0;
+	margin: 10px 0;
 	background-color: pink;
 	border-radius: 7px;
 	color: gray;
+	font-size: 15pt;
 }
 
