@@ -58,10 +58,30 @@ function calcula()
 				alert("Números 0 e 1 permitidos!");
 			}else
 			{
-				alert("Deu certo!");
+				//Descobrir de que classe é
+				classe(primeira);
+				//alert("Deu certo!");
+				//Deu certo, agora verificamos as máscaras de rede e de subrede 
+				var masc = document.getElementById('masc');
+				var mascSub = document.getElementById('mascSub');
 
+				var valuem = masc.options[masc.selectedIndex].value;
 				
-				
+				var valuesub = mascSub.options[mascSub.selectedIndex].value;
+
+				//Aqui veremos se o usuário escolheu as máscaras
+				if (valuem!=0) 
+				{
+					if (valuesub!=0) 
+					{
+						alert("aqui amigos");
+						var tam = 32 - valuem;
+
+					}else
+					{
+
+					}
+				}
 			}
 		}else
 		{
@@ -71,4 +91,30 @@ function calcula()
 	{
 		
 	}
+}
+
+
+function classe(primeira)
+{
+	let atrclass = document.getElementById('letra');
+	alert(primeira);
+	if (primeira[0] == '0')
+	{
+		atrclass.innerHTML = "A";
+	}else if(primeira[0] == '1' && primeira[1] == '0')
+	{
+		atrclass.innerHTML = "B";
+	}
+	else if(primeira[0] == '1' && primeira[1] == '1' && primeira[2] == '0')
+	{
+		atrclass.innerHTML = "C";
+	
+	}else if (primeira[0] == '1' && primeira[1] == '1' && primeira[2] == '1' && primeira[3] == '0') 
+	{
+		atrclass.innerHTML = "D";
+	}else
+	{
+		atrclass.innerHTML = "E";
+	}
+
 }
