@@ -69,8 +69,36 @@ function calcula()
 					
 					if (valuesub!=0) 
 					{
-						//Com subrede
+						// Visivel para quem é de fora
+						let rede = document.getElementById('rede1');
+						let broad = document.getElementById('broad1');
+						let primHost = document.getElementById('primeiro1');
+						let ultHost = document.getElementById('ultimo1');
+						let qtsHosts = document.getElementById('qtHost');
+						
+						//Sem subrede								
+						//Endereço de rede -> Endereço do primeiro host
+						// Calculo do Endereço de rede
+						var endRede = enderecorede(IP, valuem);
+						rede.innerHTML = endRede;
 
+						//Calculo do endereço do primeiro host
+						var primeiroHost = primeiroEnd(endRede);
+						primHost.innerHTML = primeiroHost;
+						//Endereço de broacast -> Endereço do último host
+						// Calculo do Endereço de broadcast			
+						var endBroad = enderecobroad(IP, valuem);
+					    broad.innerHTML = endBroad;
+
+					    //Calculo do endereço do ultimo host
+						var ultimoHost = ultimoEnd(endBroad);
+						ultHost.innerHTML = ultimoHost;
+
+						//Hosts possíveis da rede
+						var qts = qtsHost(32-valuem);
+						qtsHosts.innerHTML = qts-2 +`</br>` +`</br>`;
+						
+						//Com subrede
 						if (valuesub >= valuem) 
 						{
 							let subredeImprime = document.getElementById('subrede');
@@ -102,11 +130,11 @@ function calcula()
 							
 							var numSubredes = qtsTotal/qts;
 							var  q = '';
-
+							qts = qts-2;
 							q = qts.toString();
 							imprime = imprime + "Quantidade de host disponível na subrede " + q +`</br>` +`</br>`;
 							imprime = imprime +`</br>` +`</br>`; 
-							
+
 							numSubredes = numSubredes - 1;
 							alert(numSubredes);
 							
@@ -138,37 +166,7 @@ function calcula()
 						}else
 						{
 							alert("Mais endereço do que você tem");
-						}
-				
-					}else
-					{	
-						let rede = document.getElementById('rede1');
-						let broad = document.getElementById('broad1');
-						let primHost = document.getElementById('primeiro1');
-						let ultHost = document.getElementById('ultimo1');
-						let qtsHosts = document.getElementById('qtHost');
-						
-						//Sem subrede								
-						//Endereço de rede -> Endereço do primeiro host
-						// Calculo do Endereço de rede
-						var endRede = enderecorede(IP, valuem);
-						rede.innerHTML = endRede;
-
-						//Calculo do endereço do primeiro host
-						var primeiroHost = primeiroEnd(endRede);
-						primHost.innerHTML = primeiroHost;
-						//Endereço de broacast -> Endereço do último host
-						// Calculo do Endereço de broadcast			
-						var endBroad = enderecobroad(IP, valuem);
-					    broad.innerHTML = endBroad;
-
-					    //Calculo do endereço do ultimo host
-						var ultimoHost = ultimoEnd(endBroad);
-						ultHost.innerHTML = ultimoHost;
-
-						//Hosts possíveis da rede
-						var qts = qtsHost(32-valuem);
-						qtsHosts.innerHTML = qts-2;
+						}	
 					}
 				}
 			}
