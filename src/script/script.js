@@ -85,17 +85,30 @@ function calcula()
 						//Sem subrede
 						let rede = document.getElementById('rede1');
 						let broad = document.getElementById('broad1');
+						let primHost = document.getElementById('primeiro1');
+						let ultHost = document.getElementById('ultimo1');
+						let qtsHosts = document.getElementById('qtHost');
 						
 						//Endereço de rede -> Endereço do primeiro host
 						// Calculo do Endereço de rede
 						var endRede = enderecorede(IP, valuem);
 						rede.innerHTML = endRede;
 
+						//Calculo do endereço do primeiro host
+						var primeiroHost = primeiroEnd(endRede);
+						primHost.innerHTML = primeiroHost;
 						//Endereço de broacast -> Endereço do último host
 						// Calculo do Endereço de broadcast			
 						var endBroad = enderecobroad(IP, valuem);
 					    broad.innerHTML = endBroad;
 
+					    //Calculo do endereço do ultimo host
+						var ultimoHost = ultimoEnd(endBroad);
+						ultHost.innerHTML = ultimoHost;
+
+						//Hosts possíveis da rede
+						var qts = qtsHost(32-valuem);
+						qtsHosts.innerHTML = qts-2;
 					}
 				}
 			}
@@ -166,4 +179,53 @@ function enderecobroad(IP, valuem)
 	}	
 
 	return endBroad;
+}
+
+function primeiroEnd(rede)
+{
+	var sobe = 1, primeiro = '';
+
+	for (var i = 31; i >= 0; i--) 
+	{
+		if (sobe == 1) 
+		{
+			if (rede[i] == '1') 
+			{
+				primeiro = '0' + primeiro;
+			
+			}else
+			{
+				primeiro = '1' + primeiro;
+				sobe = 0;
+			}
+		}else
+		{
+			primeiro = rede[i] + primeiro;
+		}
+	}
+	return primeiro;
+}
+
+function ultimoEnd(broacast)
+{
+	var ultimo = '';
+
+	ultimo = '0';
+	// alert(broacast);
+	for (var i = 30; i >= 0; i--) 
+	{
+		ultimo = broacast[i] + ultimo;
+	}
+	return ultimo;
+}
+
+function qtsHost(valuem)
+{
+	var qts = 1, mult = 1;
+	for (var i = 0; i < valuem; i++) 
+	{
+		qts = qts + mult;
+		mult = mult * 2;
+	}
+	return qts;
 }
