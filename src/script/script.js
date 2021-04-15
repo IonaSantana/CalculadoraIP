@@ -101,18 +101,19 @@ function calcula()
 						if (valuesub >= valuem) 
 						{
 							let subredeImprime = document.getElementById('subrede');
-							var imprime = '';
+							let subdecImprime = document.getElementById('subdec');
+							var imprime = '', imprimedec = '';
 							
 							//Endereço de rede -> Endereço do primeiro host
 							// Calculo do Endereço de rede da primeira subrede
 							var endRede = enderecorede(IP, valuem);
 							var endRedeSub = enderecorede(endRede, valuesub).toString();
 							imprime = imprime + "Endereço subrede " + endRedeSub +`</br>` +`</br>`;
-							
+							imprimedec = imprimedec + "Endereço subrede " + bindec(endRedeSub).toString() +`</br>` +`</br>`;
 							//Calculo do endereço do primeiro host
 							var primeiroHost = primeiroEnd(endRedeSub).toString();
 						    imprime = imprime + "Primeiro endereço de host " + primeiroHost +`</br>` +`</br>`;
-							
+							imprimedec = imprimedec + "Primeiro endereço de host " + bindec(primeiroHost).toString() +`</br>` +`</br>`;
 							//Calculo do broadcast
 							var endBroad = enderecobroad(endRedeSub, valuesub).toString();
 
@@ -122,6 +123,8 @@ function calcula()
 						    imprime = imprime + "Último endereço de host " + ultimoHost +`</br>` +`</br>`;
 					   	    imprime = imprime + "Endereço de broacast " + endBroad +`</br>` +`</br>`;
 							
+							imprimedec = imprimedec + "Último endereço de host " + bindec(ultimoHost).toString() +`</br>` +`</br>`;
+							imprimedec = imprimedec + "Endereço de broacast " + bindec(endBroad).toString() +`</br>` +`</br>`;
 					   		//Quantidade de hosts válidos na subrede
 							var qts = parseInt(qtsHost(32-valuesub));
 							var qtsTotal = parseInt(qtsHost(32 -valuem));
@@ -133,15 +136,20 @@ function calcula()
 							imprime = imprime + "Quantidade de host disponível na subrede " + q +`</br>` +`</br>`;
 							imprime = imprime +`</br>` +`</br>`; 
 
+							imprimedec = imprimedec + "Quantidade de host disponível na subrede "  + q +`</br>` +`</br>`;
+							imprimedec = imprimedec +`</br>` +`</br>`; 
+
 							numSubredes = numSubredes - 1;
 							
 							for (var i = 0; i < numSubredes; i++) 
 							{							
 								endRedeSub = primeiroEnd(endBroad, valuesub).toString();
 								imprime = imprime + "Endereço subrede" + endRedeSub +`</br>` +`</br>`;
+								imprimedec = imprimedec + "Endereço subrede" + bindec(endRedeSub).toString() +`</br>` +`</br>`;
 								
 								primeiroHost = primeiroEnd(endRedeSub).toString();
-								imprime = imprime + "Primeiro endereço de host" + primeiroHost +`</br>` +`</br>`;
+								imprime = imprime + "Primeiro endereço de host " + primeiroHost +`</br>` +`</br>`;
+								imprimedec = imprimedec + "Primeiro endereço de host " + bindec(primeiroHost).toString() +`</br>` +`</br>`;
 
 								//Calculo do broadcast
 								var endBroad = enderecobroad(endRedeSub, valuesub).toString();
@@ -151,14 +159,19 @@ function calcula()
 							
 								imprime = imprime + "Último endereço de host" + ultimoHost +`</br>` +`</br>`;
 					   			imprime = imprime + "Endereço de broacast" + endBroad +`</br>` +`</br>`;
+
+					   			imprimedec = imprimedec + "Último endereço de host " + bindec(ultimoHost).toString() +`</br>` +`</br>`;
+								imprimedec = imprimedec + "Endereço de broacast " + bindec(endBroad).toString() +`</br>` +`</br>`;
 				
 						   		// Quantidade de hosts válidos na subrede
 								imprime = imprime + "Quantidade de host disponível na subrede " + q +`</br>` +`</br>`;
 								imprime = imprime +`</br>` +`</br>`; 
-								
+								imprimedec = imprimedec + "Quantidade de host disponível na subrede "  + q +`</br>` +`</br>`;
+								imprimedec = imprimedec +`</br>` +`</br>`;		
 							}
 							
 							subredeImprime.innerHTML = imprime;
+							subdec.innerHTML = imprimedec;
 
 						}else
 						{
@@ -238,18 +251,19 @@ function calcula()
 					if (valuesub >= valuem) 
 					{
 						let subredeImprime = document.getElementById('subrede');
-						var imprime = '';
+						let subdecImprime = document.getElementById('subdec');
+						var imprime = '', imprimedec = '';
 						
 						//Endereço de rede -> Endereço do primeiro host
 						// Calculo do Endereço de rede da primeira subrede
 						var endRede = enderecorede(IP, valuem);
 						var endRedeSub = enderecorede(endRede, valuesub).toString();
 						imprime = imprime + "Endereço subrede " + endRedeSub +`</br>` +`</br>`;
-						
+						imprimedec = imprimedec + "Endereço subrede " + bindec(endRedeSub).toString() +`</br>` +`</br>`;
 						//Calculo do endereço do primeiro host
 						var primeiroHost = primeiroEnd(endRedeSub).toString();
 					    imprime = imprime + "Primeiro endereço de host " + primeiroHost +`</br>` +`</br>`;
-						
+						imprimedec = imprimedec + "Primeiro endereço de host " + bindec(primeiroHost).toString() +`</br>` +`</br>`;
 						//Calculo do broadcast
 						var endBroad = enderecobroad(endRedeSub, valuesub).toString();
 
@@ -259,6 +273,8 @@ function calcula()
 					    imprime = imprime + "Último endereço de host " + ultimoHost +`</br>` +`</br>`;
 				   	    imprime = imprime + "Endereço de broacast " + endBroad +`</br>` +`</br>`;
 						
+						imprimedec = imprimedec + "Último endereço de host " + bindec(ultimoHost).toString() +`</br>` +`</br>`;
+						imprimedec = imprimedec + "Endereço de broacast " + bindec(endBroad).toString() +`</br>` +`</br>`;
 				   		//Quantidade de hosts válidos na subrede
 						var qts = parseInt(qtsHost(32-valuesub));
 						var qtsTotal = parseInt(qtsHost(32 -valuem));
@@ -270,15 +286,20 @@ function calcula()
 						imprime = imprime + "Quantidade de host disponível na subrede " + q +`</br>` +`</br>`;
 						imprime = imprime +`</br>` +`</br>`; 
 
+						imprimedec = imprimedec + "Quantidade de host disponível na subrede "  + q +`</br>` +`</br>`;
+						imprimedec = imprimedec +`</br>` +`</br>`; 
+
 						numSubredes = numSubredes - 1;
 						
 						for (var i = 0; i < numSubredes; i++) 
 						{							
 							endRedeSub = primeiroEnd(endBroad, valuesub).toString();
 							imprime = imprime + "Endereço subrede" + endRedeSub +`</br>` +`</br>`;
+							imprimedec = imprimedec + "Endereço subrede" + bindec(endRedeSub).toString() +`</br>` +`</br>`;
 							
 							primeiroHost = primeiroEnd(endRedeSub).toString();
-							imprime = imprime + "Primeiro endereço de host" + primeiroHost +`</br>` +`</br>`;
+							imprime = imprime + "Primeiro endereço de host " + primeiroHost +`</br>` +`</br>`;
+							imprimedec = imprimedec + "Primeiro endereço de host " + bindec(primeiroHost).toString() +`</br>` +`</br>`;
 
 							//Calculo do broadcast
 							var endBroad = enderecobroad(endRedeSub, valuesub).toString();
@@ -288,14 +309,19 @@ function calcula()
 						
 							imprime = imprime + "Último endereço de host" + ultimoHost +`</br>` +`</br>`;
 				   			imprime = imprime + "Endereço de broacast" + endBroad +`</br>` +`</br>`;
+
+				   			imprimedec = imprimedec + "Último endereço de host " + bindec(ultimoHost).toString() +`</br>` +`</br>`;
+							imprimedec = imprimedec + "Endereço de broacast " + bindec(endBroad).toString() +`</br>` +`</br>`;
 			
 					   		// Quantidade de hosts válidos na subrede
 							imprime = imprime + "Quantidade de host disponível na subrede " + q +`</br>` +`</br>`;
 							imprime = imprime +`</br>` +`</br>`; 
-							
+							imprimedec = imprimedec + "Quantidade de host disponível na subrede "  + q +`</br>` +`</br>`;
+							imprimedec = imprimedec +`</br>` +`</br>`;		
 						}
 						
 						subredeImprime.innerHTML = imprime;
+						subdec.innerHTML = imprimedec;
 					}	
 				}	
 			}	
@@ -422,17 +448,32 @@ function decbin(num)
 	num = parseInt(num);
 	while (num!=0)
 	{
-		alert(num%2);
 		transformado = (num%2).toString() + transformado;
 		num = Math.trunc(num / 2);
 	}
 
 	var tam = 8 - transformado.length;
-	alert(transformado.length);
+
 	for (var i = 0; i < tam; i++) 
 	{
 		transformado = '0' + transformado;
 	}
-	alert(transformado);
 	return transformado;
+}
+
+function bindec(num)
+{
+	var resp = '';
+	var n = 0, mult = 1;
+	for (var i = 31; i >=0; i--) 
+	{	
+		if ((i + 1)%8 == 0 && i!=31) 
+		{
+			resp = n.toString() + '.' + resp;
+			n = 0, mult = 1;
+		}
+		n = n + mult*parseInt(num[i]);
+		mult = mult * 2;		
+	}
+	return resp;
 }
