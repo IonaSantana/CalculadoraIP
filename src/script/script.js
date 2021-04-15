@@ -1,7 +1,7 @@
 
 bin = true;
 pode = true;
-function decbin()
+function mododecbin()
 {
 	// Escolha do usuário digitar em binário ou em decimal, aqui ele escolhe um desses modos
 	// Validar se o que o usuário digitou é válido dentro das especificações do IPV4
@@ -66,38 +66,37 @@ function calcula()
 				if (valuem!=0) 
 				{						
 					var IP = primeira + segundo + terceiro + quarto;
+					// Visivel para quem é de fora
+					let rede = document.getElementById('rede1');
+					let broad = document.getElementById('broad1');
+					let primHost = document.getElementById('primeiro1');
+					let ultHost = document.getElementById('ultimo1');
+					let qtsHosts = document.getElementById('qtHost');
+					
+					//Sem subrede								
+					//Endereço de rede -> Endereço do primeiro host
+					// Calculo do Endereço de rede
+					var endRede = enderecorede(IP, valuem);
+					rede.innerHTML = endRede;
+
+					//Calculo do endereço do primeiro host
+					var primeiroHost = primeiroEnd(endRede);
+					primHost.innerHTML = primeiroHost;
+					//Endereço de broacast -> Endereço do último host
+					// Calculo do Endereço de broadcast			
+					var endBroad = enderecobroad(IP, valuem);
+				    broad.innerHTML = endBroad;
+
+				    //Calculo do endereço do ultimo host
+					var ultimoHost = ultimoEnd(endBroad);
+					ultHost.innerHTML = ultimoHost;
+
+					//Hosts possíveis da rede
+					var qts = qtsHost(32-valuem);
+					qtsHosts.innerHTML = qts-2 +`</br>` +`</br>`;
 					
 					if (valuesub!=0) 
-					{
-						// Visivel para quem é de fora
-						let rede = document.getElementById('rede1');
-						let broad = document.getElementById('broad1');
-						let primHost = document.getElementById('primeiro1');
-						let ultHost = document.getElementById('ultimo1');
-						let qtsHosts = document.getElementById('qtHost');
-						
-						//Sem subrede								
-						//Endereço de rede -> Endereço do primeiro host
-						// Calculo do Endereço de rede
-						var endRede = enderecorede(IP, valuem);
-						rede.innerHTML = endRede;
-
-						//Calculo do endereço do primeiro host
-						var primeiroHost = primeiroEnd(endRede);
-						primHost.innerHTML = primeiroHost;
-						//Endereço de broacast -> Endereço do último host
-						// Calculo do Endereço de broadcast			
-						var endBroad = enderecobroad(IP, valuem);
-					    broad.innerHTML = endBroad;
-
-					    //Calculo do endereço do ultimo host
-						var ultimoHost = ultimoEnd(endBroad);
-						ultHost.innerHTML = ultimoHost;
-
-						//Hosts possíveis da rede
-						var qts = qtsHost(32-valuem);
-						qtsHosts.innerHTML = qts-2 +`</br>` +`</br>`;
-						
+					{		
 						//Com subrede
 						if (valuesub >= valuem) 
 						{
@@ -108,7 +107,6 @@ function calcula()
 							// Calculo do Endereço de rede da primeira subrede
 							var endRede = enderecorede(IP, valuem);
 							var endRedeSub = enderecorede(endRede, valuesub).toString();
-							alert("aqui");
 							imprime = imprime + "Endereço subrede " + endRedeSub +`</br>` +`</br>`;
 							
 							//Calculo do endereço do primeiro host
@@ -136,7 +134,6 @@ function calcula()
 							imprime = imprime +`</br>` +`</br>`; 
 
 							numSubredes = numSubredes - 1;
-							alert(numSubredes);
 							
 							for (var i = 0; i < numSubredes; i++) 
 							{							
@@ -176,7 +173,137 @@ function calcula()
 		}
 	}else
 	{
-		
+		//Modo decimal, verifica se valores escritos são válidos
+
+		var validapri = parseInt(um.value);
+		var validaseg = parseInt(dois.value);
+		var validater = parseInt(tres.value);
+		var validaquar = parseInt(quatro.value);
+
+		if ((validapri >=0 && validapri <=255) && (validaseg >=0 && validaseg <=255) && (validater >=0 && validater <=255) && (validaquar >=0 && validaquar <=255))
+		{
+			//Transformar o decimal em binário porque já foi resolvido em binário
+			var primeira = decbin(validapri).toString();
+			var segundo = decbin(validaseg).toString();
+			var terceiro = decbin(validater).toString();
+			var quarto = decbin(validaquar).toString();
+
+			//Descobrir de que classe é
+			classe(primeira);
+			
+			//Deu certo, agora verificamos as máscaras de rede e de subrede 
+			let masc = document.getElementById('masc');
+			let mascSub = document.getElementById('mascSub');
+
+			let valuem = masc.options[masc.selectedIndex].value;
+			
+			let valuesub = mascSub.options[mascSub.selectedIndex].value;
+			alert("Deu certo!");
+			//Aqui veremos se o usuário escolheu as máscaras
+			if (valuem!=0) 
+			{						
+				var IP = primeira + segundo + terceiro + quarto;
+				var IP = primeira + segundo + terceiro + quarto;
+				// Visivel para quem é de fora
+				let rede = document.getElementById('rede1');
+				let broad = document.getElementById('broad1');
+				let primHost = document.getElementById('primeiro1');
+				let ultHost = document.getElementById('ultimo1');
+				let qtsHosts = document.getElementById('qtHost');
+				
+				//Sem subrede								
+				//Endereço de rede -> Endereço do primeiro host
+				// Calculo do Endereço de rede
+				var endRede = enderecorede(IP, valuem);
+				rede.innerHTML = endRede;
+
+				//Calculo do endereço do primeiro host
+				var primeiroHost = primeiroEnd(endRede);
+				primHost.innerHTML = primeiroHost;
+				//Endereço de broacast -> Endereço do último host
+				// Calculo do Endereço de broadcast			
+				var endBroad = enderecobroad(IP, valuem);
+			    broad.innerHTML = endBroad;
+
+			    //Calculo do endereço do ultimo host
+				var ultimoHost = ultimoEnd(endBroad);
+				ultHost.innerHTML = ultimoHost;
+
+				//Hosts possíveis da rede
+				var qts = qtsHost(32-valuem);
+				qtsHosts.innerHTML = qts-2 +`</br>` +`</br>`;
+				if (valuesub!=0) 
+				{
+					//Com subrede
+					if (valuesub >= valuem) 
+					{
+						let subredeImprime = document.getElementById('subrede');
+						var imprime = '';
+						
+						//Endereço de rede -> Endereço do primeiro host
+						// Calculo do Endereço de rede da primeira subrede
+						var endRede = enderecorede(IP, valuem);
+						var endRedeSub = enderecorede(endRede, valuesub).toString();
+						imprime = imprime + "Endereço subrede " + endRedeSub +`</br>` +`</br>`;
+						
+						//Calculo do endereço do primeiro host
+						var primeiroHost = primeiroEnd(endRedeSub).toString();
+					    imprime = imprime + "Primeiro endereço de host " + primeiroHost +`</br>` +`</br>`;
+						
+						//Calculo do broadcast
+						var endBroad = enderecobroad(endRedeSub, valuesub).toString();
+
+						//Calculo do endereço do ultimo host
+						var ultimoHost = ultimoEnd(endBroad).toString();
+						
+					    imprime = imprime + "Último endereço de host " + ultimoHost +`</br>` +`</br>`;
+				   	    imprime = imprime + "Endereço de broacast " + endBroad +`</br>` +`</br>`;
+						
+				   		//Quantidade de hosts válidos na subrede
+						var qts = parseInt(qtsHost(32-valuesub));
+						var qtsTotal = parseInt(qtsHost(32 -valuem));
+						
+						var numSubredes = qtsTotal/qts;
+						var  q = '';
+						qts = qts-2;
+						q = qts.toString();
+						imprime = imprime + "Quantidade de host disponível na subrede " + q +`</br>` +`</br>`;
+						imprime = imprime +`</br>` +`</br>`; 
+
+						numSubredes = numSubredes - 1;
+						
+						for (var i = 0; i < numSubredes; i++) 
+						{							
+							endRedeSub = primeiroEnd(endBroad, valuesub).toString();
+							imprime = imprime + "Endereço subrede" + endRedeSub +`</br>` +`</br>`;
+							
+							primeiroHost = primeiroEnd(endRedeSub).toString();
+							imprime = imprime + "Primeiro endereço de host" + primeiroHost +`</br>` +`</br>`;
+
+							//Calculo do broadcast
+							var endBroad = enderecobroad(endRedeSub, valuesub).toString();
+
+							//Calculo do endereço do ultimo host
+							var ultimoHost = ultimoEnd(endBroad).toString();
+						
+							imprime = imprime + "Último endereço de host" + ultimoHost +`</br>` +`</br>`;
+				   			imprime = imprime + "Endereço de broacast" + endBroad +`</br>` +`</br>`;
+			
+					   		// Quantidade de hosts válidos na subrede
+							imprime = imprime + "Quantidade de host disponível na subrede " + q +`</br>` +`</br>`;
+							imprime = imprime +`</br>` +`</br>`; 
+							
+						}
+						
+						subredeImprime.innerHTML = imprime;
+					}	
+				}	
+			}	
+
+		}else
+		{
+			alert("Cada parte deve estar entre valores de 0 a 255");
+		}
 	}
 }
 
@@ -286,4 +413,26 @@ function qtsHost(valuem)
 		mult = mult * 2;
 	}
 	return qts;
+}
+
+function decbin(num)
+{
+	var transformado = '';
+
+	num = parseInt(num);
+	while (num!=0)
+	{
+		alert(num%2);
+		transformado = (num%2).toString() + transformado;
+		num = Math.trunc(num / 2);
+	}
+
+	var tam = 8 - transformado.length;
+	alert(transformado.length);
+	for (var i = 0; i < tam; i++) 
+	{
+		transformado = '0' + transformado;
+	}
+	alert(transformado);
+	return transformado;
 }
