@@ -71,14 +71,30 @@ function calcula()
 
 				//Aqui veremos se o usuário escolheu as máscaras
 				if (valuem!=0) 
-				{
+				{	
+
+					var IP = primeira + segundo + terceiro + quarto;
 					if (valuesub!=0) 
 					{
+						//Com subrede
 						alert("aqui amigos");
-						var tam = 32 - valuem;
-
+						
 					}else
 					{
+						
+						//Sem subrede
+						let rede = document.getElementById('rede1');
+						let broad = document.getElementById('broad1');
+						
+						//Endereço de rede -> Endereço do primeiro host
+						// Calculo do Endereço de rede
+						var endRede = enderecorede(IP, valuem);
+						rede.innerHTML = endRede;
+
+						//Endereço de broacast -> Endereço do último host
+						// Calculo do Endereço de broadcast			
+						var endBroad = enderecobroad(IP, valuem);
+					    broad.innerHTML = endBroad;
 
 					}
 				}
@@ -93,11 +109,11 @@ function calcula()
 	}
 }
 
-
+//Descobre de que classe o IPV4 é
 function classe(primeira)
 {
 	let atrclass = document.getElementById('letra');
-	alert(primeira);
+
 	if (primeira[0] == '0')
 	{
 		atrclass.innerHTML = "A";
@@ -117,4 +133,37 @@ function classe(primeira)
 		atrclass.innerHTML = "E";
 	}
 
+}
+// Calcula o endereço da rede
+function enderecorede(IP, valuem)
+{
+	var endRede = '';
+						
+	for (var i = 0; i < valuem; i++) 
+	{
+		endRede = endRede + IP[i];
+	}	
+
+	for (var i = valuem; i < 32; i++) 
+	{
+		endRede = endRede + '0';
+	}
+	return endRede;
+}
+// Calcula o endereco de broadcast
+function enderecobroad(IP, valuem)
+{
+	var endBroad = '';
+						
+	for (var i = 0; i < valuem; i++) 
+	{
+		endBroad = endBroad + IP[i];
+	}	
+
+	for (var i = valuem; i < 32; i++) 
+	{
+		endBroad = endBroad + '1';
+	}	
+
+	return endBroad;
 }
