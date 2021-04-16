@@ -1,4 +1,3 @@
-
 bin = true;
 pode = true;
 function mododecbin()
@@ -30,14 +29,14 @@ function calcula()
 	// ||
 	if (bin == true) 
 	{
-		var primeira = (um.value).toString();
-		var segundo = (dois.value).toString();
-		var terceiro = (tres.value).toString();
-		var quarto = (quatro.value).toString();
+		let primeira = (um.value).toString();
+		let segundo = (dois.value).toString();
+		let terceiro = (tres.value).toString();
+		let quarto = (quatro.value).toString();
 		if (primeira.length == 8 && segundo.length == 8 && terceiro.length == 8 && quarto.length == 8) 
 		{
 			
-			for (var i = 0; i < 8; i++) 
+			for (let i = 0; i < 8; i++) 
 			{
 				if((primeira[i]!='1' && primeira[i]!='0') || (segundo[i]!='1' && segundo[i]!='0') || (terceiro[i]!='1' && terceiro[i]!='0') ||(quarto[i]!='1' && quarto[i]!='0'))
 				{
@@ -61,18 +60,18 @@ function calcula()
 	{
 		//Modo decimal, verifica se valores escritos são válidos
 
-		var validapri = parseInt(um.value);
-		var validaseg = parseInt(dois.value);
-		var validater = parseInt(tres.value);
-		var validaquar = parseInt(quatro.value);
+		let validapri = parseInt(um.value);
+		let validaseg = parseInt(dois.value);
+		let validater = parseInt(tres.value);
+		let validaquar = parseInt(quatro.value);
 
 		if ((validapri >=0 && validapri <=255) && (validaseg >=0 && validaseg <=255) && (validater >=0 && validater <=255) && (validaquar >=0 && validaquar <=255))
 		{
 			//Transformar o decimal em binário porque já foi resolvido em binário
-			var primeira = decbin(validapri).toString();
-			var segundo = decbin(validaseg).toString();
-			var terceiro = decbin(validater).toString();
-			var quarto = decbin(validaquar).toString();
+			let primeira = decbin(validapri).toString();
+			let segundo = decbin(validaseg).toString();
+			let terceiro = decbin(validater).toString();
+			let quarto = decbin(validaquar).toString();
 
 			resposta(primeira,segundo,terceiro,quarto);
 
@@ -84,47 +83,46 @@ function calcula()
 }
 function resposta(primeira,segundo,terceiro,quarto)
 {
+	let subredeImprime = document.getElementById('subrede');
+	let subdecImprime = document.getElementById('subdec');
+	let masc = document.getElementById('masc');
+	let mascSub = document.getElementById('mascSub');
+	let rede = document.getElementById('rede1');
+	let broad = document.getElementById('broad1');
+	let primHost = document.getElementById('primeiro1');
+	let ultHost = document.getElementById('ultimo1');
+	let qtsHosts = document.getElementById('qtHost');
 	//Descobrir de que classe é
 	classe(primeira);
 	//alert("Deu certo!");
 	//Deu certo, agora verificamos as máscaras de rede e de subrede 
-	var masc = document.getElementById('masc');
-	var mascSub = document.getElementById('mascSub');
-
-	var valuem = masc.options[masc.selectedIndex].value;
-	var valuesub = mascSub.options[mascSub.selectedIndex].value;
+	let valuem = parseInt(masc.options[masc.selectedIndex].value);
+	let valuesub = parseInt(mascSub.options[mascSub.selectedIndex].value);
 
 	//Aqui veremos se o usuário escolheu as máscaras
 	if (valuem!=0) 
 	{						
-		var IP = primeira + segundo + terceiro + quarto;
+		let IP = primeira + segundo + terceiro + quarto;
 		// Visivel para quem é de fora
-		let rede = document.getElementById('rede1');
-		let broad = document.getElementById('broad1');
-		let primHost = document.getElementById('primeiro1');
-		let ultHost = document.getElementById('ultimo1');
-		let qtsHosts = document.getElementById('qtHost');
-		
 		//Sem subrede								
 		//Endereço de rede -> Endereço do primeiro host
 		// Calculo do Endereço de rede
-		var endRede = enderecorede(IP, valuem);
+		let endRede = enderecorede(IP, valuem);
 		rede.innerHTML = ponto(endRede) + " ------------------ " + bindec(endRede);
-
 		//Calculo do endereço do primeiro host
-		var primeiroHost = primeiroEnd(endRede);
+		let primeiroHost = primeiroEnd(endRede);
 		primHost.innerHTML = ponto(primeiroHost) + " ------------------ " + bindec(primeiroHost);
 		//Endereço de broacast -> Endereço do último host
 		// Calculo do Endereço de broadcast			
-		var endBroad = enderecobroad(IP, valuem);
+		let endBroad = enderecobroad(IP, valuem);
 	    broad.innerHTML = ponto(endBroad) + " ------------------ " + bindec(endBroad);
 
 	    //Calculo do endereço do ultimo host
-		var ultimoHost = ultimoEnd(endBroad);
+		let ultimoHost = ultimoEnd(endBroad);
 		ultHost.innerHTML = ponto(ultimoHost) + " ------------------ " + bindec(ultimoHost);
 
 		//Hosts possíveis da rede
-		var qts = qtsHost(32-valuem);
+		let qts = qtsHost(32-valuem);
 		qtsHosts.innerHTML = qts-2 +`</br>` +`</br>`;
 		
 		if (valuesub!=0) 
@@ -132,25 +130,27 @@ function resposta(primeira,segundo,terceiro,quarto)
 			//Com subrede
 			if (valuesub >= valuem) 
 			{
-				let subredeImprime = document.getElementById('subrede');
-				let subdecImprime = document.getElementById('subdec');
-				var imprime = '', imprimedec = '';
+				console.log(typeof valuesub)
+				console.log(typeof valuem)
+				//alert("aaaaa")
+				
+				let imprime = '', imprimedec = '';
 				
 				//Endereço de rede -> Endereço do primeiro host
 				// Calculo do Endereço de rede da primeira subrede
-				var endRede = enderecorede(IP, valuem);
-				var endRedeSub = enderecorede(endRede, valuesub).toString();
+				let endRede = enderecorede(IP, valuem);
+				let endRedeSub = enderecorede(endRede, valuesub).toString();
 				imprime = imprime + "Endereço subrede " + ponto(endRedeSub) +`</br>` +`</br>`;
 				imprimedec = imprimedec + "Endereço subrede " + bindec(endRedeSub).toString() +`</br>` +`</br>`;
 				//Calculo do endereço do primeiro host
-				var primeiroHost = primeiroEnd(endRedeSub).toString();
+				let primeiroHost = primeiroEnd(endRedeSub).toString();
 			    imprime = imprime + "Primeiro endereço de host " + ponto(primeiroHost) +`</br>` +`</br>`;
 				imprimedec = imprimedec + "Primeiro endereço de host " + bindec(primeiroHost).toString() +`</br>` +`</br>`;
 				//Calculo do broadcast
-				var endBroad = enderecobroad(endRedeSub, valuesub).toString();
+				let endBroad = enderecobroad(endRedeSub, valuesub).toString();
 
 				//Calculo do endereço do ultimo host
-				var ultimoHost = ultimoEnd(endBroad).toString();
+				let ultimoHost = ultimoEnd(endBroad).toString();
 				
 			    imprime = imprime + "Último endereço de host " + ponto(ultimoHost) +`</br>` +`</br>`;
 		   	    imprime = imprime + "Endereço de broacast " + ponto(endBroad) +`</br>` +`</br>`;
@@ -158,11 +158,11 @@ function resposta(primeira,segundo,terceiro,quarto)
 				imprimedec = imprimedec + "Último endereço de host " + bindec(ultimoHost).toString() +`</br>` +`</br>`;
 				imprimedec = imprimedec + "Endereço de broacast " + bindec(endBroad).toString() +`</br>` +`</br>`;
 		   		//Quantidade de hosts válidos na subrede
-				var qts = parseInt(qtsHost(32-valuesub));
-				var qtsTotal = parseInt(qtsHost(32 -valuem));
+				let qts = parseInt(qtsHost(32-valuesub));
+				let qtsTotal = parseInt(qtsHost(32 -valuem));
 				
-				var numSubredes = qtsTotal/qts;
-				var  q = '';
+				let numSubredes = qtsTotal/qts;
+				let  q = '';
 				qts = qts-2;
 				q = qts.toString();
 				imprime = imprime + "Quantidade de host disponível na subrede " + q +`</br>` +`</br>`;
@@ -173,7 +173,7 @@ function resposta(primeira,segundo,terceiro,quarto)
 
 				numSubredes = numSubredes - 1;
 				
-				for (var i = 0; i < numSubredes; i++) 
+				for (let i = 0; i < numSubredes; i++) 
 				{							
 					endRedeSub = primeiroEnd(endBroad, valuesub).toString();
 					imprime = imprime + "Endereço subrede" + ponto(endRedeSub) +`</br>` +`</br>`;
@@ -184,10 +184,10 @@ function resposta(primeira,segundo,terceiro,quarto)
 					imprimedec = imprimedec + "Primeiro endereço de host " + bindec(primeiroHost).toString() +`</br>` +`</br>`;
 
 					//Calculo do broadcast
-					var endBroad = enderecobroad(endRedeSub, valuesub).toString();
+					let endBroad = enderecobroad(endRedeSub, valuesub).toString();
 
 					//Calculo do endereço do ultimo host
-					var ultimoHost = ultimoEnd(endBroad).toString();
+					let ultimoHost = ultimoEnd(endBroad).toString();
 				
 					imprime = imprime + "Último endereço de host " + ponto(ultimoHost) +`</br>` +`</br>`;
 		   			imprime = imprime + "Endereço de broacast " + ponto(endBroad) +`</br>` +`</br>`;
@@ -203,7 +203,8 @@ function resposta(primeira,segundo,terceiro,quarto)
 				}
 				
 				subredeImprime.innerHTML = imprime;
-				subdec.innerHTML = imprimedec;
+				subdecImprime.innerHTML = imprimedec;
+				
 			}else
 			{
 				alert("Mais endereço do que você tem");
@@ -240,14 +241,14 @@ function classe(primeira)
 // Calcula o endereço da rede
 function enderecorede(IP, valuem)
 {
-	var endRede = '';
+	let endRede = '';
 						
-	for (var i = 0; i < valuem; i++) 
+	for (let i = 0; i < valuem; i++) 
 	{
 		endRede = endRede + IP[i];
 	}	
 
-	for (var i = valuem; i < 32; i++) 
+	for (let i = valuem; i < 32; i++) 
 	{
 		endRede = endRede + '0';
 	}
@@ -256,14 +257,14 @@ function enderecorede(IP, valuem)
 // Calcula o endereco de broadcast
 function enderecobroad(IP, valuem)
 {
-	var endBroad = '';
+	let endBroad = '';
 						
-	for (var i = 0; i < valuem; i++) 
+	for (let i = 0; i < valuem; i++) 
 	{
 		endBroad = endBroad + IP[i];
 	}	
 
-	for (var i = valuem; i < 32; i++) 
+	for (let i = valuem; i < 32; i++) 
 	{
 		endBroad = endBroad + '1';
 	}	
@@ -273,9 +274,9 @@ function enderecobroad(IP, valuem)
 
 function primeiroEnd(rede)
 {
-	var sobe = 1, primeiro = '';
+	let sobe = 1, primeiro = '';
 
-	for (var i = 31; i >= 0; i--) 
+	for (let i = 31; i >= 0; i--) 
 	{
 		if (sobe == 1) 
 		{
@@ -298,11 +299,11 @@ function primeiroEnd(rede)
 
 function ultimoEnd(broacast)
 {
-	var ultimo = '';
+	let ultimo = '';
 
 	ultimo = '0';
 	// alert(broacast);
-	for (var i = 30; i >= 0; i--) 
+	for (let i = 30; i >= 0; i--) 
 	{
 		ultimo = broacast[i] + ultimo;
 	}
@@ -311,8 +312,8 @@ function ultimoEnd(broacast)
 
 function qtsHost(valuem)
 {
-	var qts = 1, mult = 1;
-	for (var i = 0; i < valuem; i++) 
+	let qts = 1, mult = 1;
+	for (let i = 0; i < valuem; i++) 
 	{
 		qts = qts + mult;
 		mult = mult * 2;
@@ -322,7 +323,7 @@ function qtsHost(valuem)
 
 function decbin(num)
 {
-	var transformado = '';
+	let transformado = '';
 
 	num = parseInt(num);
 	while (num!=0)
@@ -331,9 +332,9 @@ function decbin(num)
 		num = Math.trunc(num / 2);
 	}
 
-	var tam = 8 - transformado.length;
+	let tam = 8 - transformado.length;
 
-	for (var i = 0; i < tam; i++) 
+	for (let i = 0; i < tam; i++) 
 	{
 		transformado = '0' + transformado;
 	}
@@ -342,9 +343,9 @@ function decbin(num)
 
 function bindec(num)
 {
-	var resp = '';
-	var n = 0, mult = 1;
-	for (var i = 31; i >=0; i--) 
+	let resp = '';
+	let n = 0, mult = 1;
+	for (let i = 31; i >=0; i--) 
 	{	
 		if (i%8 == 0) 
 		{
