@@ -20,8 +20,22 @@ body
 	font-size: 15pt;
 }
 
+#subrede
+{
+	width: 45%;
+	float: left;
+	border-style: solid;
+  	border-width: 3px;
+  	border-color: gray;
+  	padding: 5px;
+}
+
 #subdec
 {
-	display: absolute;
-	float: left;
+	width: 45%;
+	float: right;
+	border-style: solid;
+  	border-width: 3px;
+  	border-color: gray;
+  	padding: 5px;
 }

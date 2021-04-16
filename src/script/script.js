@@ -110,19 +110,19 @@ function resposta(primeira,segundo,terceiro,quarto)
 		//Endereço de rede -> Endereço do primeiro host
 		// Calculo do Endereço de rede
 		var endRede = enderecorede(IP, valuem);
-		rede.innerHTML = endRede + " ------------------ " + bindec(endRede);
+		rede.innerHTML = ponto(endRede) + " ------------------ " + bindec(endRede);
 
 		//Calculo do endereço do primeiro host
 		var primeiroHost = primeiroEnd(endRede);
-		primHost.innerHTML = primeiroHost + " ------------------ " + bindec(primeiroHost);
+		primHost.innerHTML = ponto(primeiroHost) + " ------------------ " + bindec(primeiroHost);
 		//Endereço de broacast -> Endereço do último host
 		// Calculo do Endereço de broadcast			
 		var endBroad = enderecobroad(IP, valuem);
-	    broad.innerHTML = endBroad + " ------------------ " + bindec(endBroad);
+	    broad.innerHTML = ponto(endBroad) + " ------------------ " + bindec(endBroad);
 
 	    //Calculo do endereço do ultimo host
 		var ultimoHost = ultimoEnd(endBroad);
-		ultHost.innerHTML = ultimoHost + " ------------------ " + bindec(ultimoHost);
+		ultHost.innerHTML = ponto(ultimoHost) + " ------------------ " + bindec(ultimoHost);
 
 		//Hosts possíveis da rede
 		var qts = qtsHost(32-valuem);
@@ -141,11 +141,11 @@ function resposta(primeira,segundo,terceiro,quarto)
 				// Calculo do Endereço de rede da primeira subrede
 				var endRede = enderecorede(IP, valuem);
 				var endRedeSub = enderecorede(endRede, valuesub).toString();
-				imprime = imprime + "Endereço subrede " + endRedeSub +`</br>` +`</br>`;
+				imprime = imprime + "Endereço subrede " + ponto(endRedeSub) +`</br>` +`</br>`;
 				imprimedec = imprimedec + "Endereço subrede " + bindec(endRedeSub).toString() +`</br>` +`</br>`;
 				//Calculo do endereço do primeiro host
 				var primeiroHost = primeiroEnd(endRedeSub).toString();
-			    imprime = imprime + "Primeiro endereço de host " + primeiroHost +`</br>` +`</br>`;
+			    imprime = imprime + "Primeiro endereço de host " + ponto(primeiroHost) +`</br>` +`</br>`;
 				imprimedec = imprimedec + "Primeiro endereço de host " + bindec(primeiroHost).toString() +`</br>` +`</br>`;
 				//Calculo do broadcast
 				var endBroad = enderecobroad(endRedeSub, valuesub).toString();
@@ -153,8 +153,8 @@ function resposta(primeira,segundo,terceiro,quarto)
 				//Calculo do endereço do ultimo host
 				var ultimoHost = ultimoEnd(endBroad).toString();
 				
-			    imprime = imprime + "Último endereço de host " + ultimoHost +`</br>` +`</br>`;
-		   	    imprime = imprime + "Endereço de broacast " + endBroad +`</br>` +`</br>`;
+			    imprime = imprime + "Último endereço de host " + ponto(ultimoHost) +`</br>` +`</br>`;
+		   	    imprime = imprime + "Endereço de broacast " + ponto(endBroad) +`</br>` +`</br>`;
 				
 				imprimedec = imprimedec + "Último endereço de host " + bindec(ultimoHost).toString() +`</br>` +`</br>`;
 				imprimedec = imprimedec + "Endereço de broacast " + bindec(endBroad).toString() +`</br>` +`</br>`;
@@ -177,11 +177,11 @@ function resposta(primeira,segundo,terceiro,quarto)
 				for (var i = 0; i < numSubredes; i++) 
 				{							
 					endRedeSub = primeiroEnd(endBroad, valuesub).toString();
-					imprime = imprime + "Endereço subrede" + endRedeSub +`</br>` +`</br>`;
+					imprime = imprime + "Endereço subrede" + ponto(endRedeSub) +`</br>` +`</br>`;
 					imprimedec = imprimedec + "Endereço subrede" + bindec(endRedeSub).toString() +`</br>` +`</br>`;
 					
 					primeiroHost = primeiroEnd(endRedeSub).toString();
-					imprime = imprime + "Primeiro endereço de host " + primeiroHost +`</br>` +`</br>`;
+					imprime = imprime + "Primeiro endereço de host " + ponto(primeiroHost) +`</br>` +`</br>`;
 					imprimedec = imprimedec + "Primeiro endereço de host " + bindec(primeiroHost).toString() +`</br>` +`</br>`;
 
 					//Calculo do broadcast
@@ -190,8 +190,8 @@ function resposta(primeira,segundo,terceiro,quarto)
 					//Calculo do endereço do ultimo host
 					var ultimoHost = ultimoEnd(endBroad).toString();
 				
-					imprime = imprime + "Último endereço de host " + ultimoHost +`</br>` +`</br>`;
-		   			imprime = imprime + "Endereço de broacast " + endBroad +`</br>` +`</br>`;
+					imprime = imprime + "Último endereço de host " + ponto(ultimoHost) +`</br>` +`</br>`;
+		   			imprime = imprime + "Endereço de broacast " + ponto(endBroad) +`</br>` +`</br>`;
 
 		   			imprimedec = imprimedec + "Último endereço de host " + bindec(ultimoHost).toString() +`</br>` +`</br>`;
 					imprimedec = imprimedec + "Endereço de broacast " + bindec(endBroad).toString() +`</br>` +`</br>`;
@@ -356,5 +356,19 @@ function bindec(num)
 		mult = mult * 2;		
 	}
 
+	return resp;
+}
+
+function ponto(bin)
+{
+	let resp = '';
+	for (let i = 0; i < 32; i++) 
+	{
+		resp = resp + bin[i];
+		if ((i+1)%8 == 0) 
+		{
+			resp = resp + '.';
+		}	
+	}
 	return resp;
 }
