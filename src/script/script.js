@@ -1,10 +1,9 @@
 bin = true;
 pode = true;
+// Escolha do usuário digitar em binário ou em decimal, aqui ele escolhe um desses modos -> o botão troca os modos
 function mododecbin()
 {
-	// Escolha do usuário digitar em binário ou em decimal, aqui ele escolhe um desses modos
-	// Validar se o que o usuário digitou é válido dentro das especificações do IPV4
-
+	
 	let modo = document.getElementById('modo');
 	if (modo.value == "Binário") 
 	{
@@ -17,7 +16,7 @@ function mododecbin()
 	}
 	
 }
-
+//Valida os números binários ou decimal digitados
 function calcula()
 {
 
@@ -81,6 +80,7 @@ function calcula()
 		}
 	}
 }
+//Calcula todos os pontos importantes da rede e da subrede se houver
 function resposta(primeira,segundo,terceiro,quarto)
 {
 	let subredeImprime = document.getElementById('subrede');
@@ -132,7 +132,7 @@ function resposta(primeira,segundo,terceiro,quarto)
 			{
 				// console.log(typeof valuesub)
 				// console.log(typeof valuem)
-				alert("aaaaa")
+				// alert("aaaaa")
 				
 				let imprime = '', imprimedec = '';
 				
@@ -272,7 +272,7 @@ function enderecobroad(IP, valuem1)
 
 	return endBroad1;
 }
-
+//Calculo primeiro host válido
 function primeiroEnd(rede)
 {
 	let sobe = 1, primeiro1 = '';
@@ -297,7 +297,7 @@ function primeiroEnd(rede)
 	}
 	return primeiro1;
 }
-
+//Calculo último host válido
 function ultimoEnd(broacast)
 {
 	let ultimo = '';
@@ -310,7 +310,7 @@ function ultimoEnd(broacast)
 	}
 	return ultimo;
 }
-
+//Quantidade de hosts com broadcast e o de rede, retirado 2 quando chama depois
 function qtsHost(valuem)
 {
 	let qts1 = 1, mult = 1;
@@ -321,7 +321,7 @@ function qtsHost(valuem)
 	}
 	return qts1;
 }
-
+//Transforma número decimal para binário
 function decbin(num)
 {
 	let transformado = '';
@@ -341,7 +341,7 @@ function decbin(num)
 	}
 	return transformado;
 }
-
+//Transforma número binario para decimal
 function bindec(num)
 {
     
@@ -361,7 +361,7 @@ function bindec(num)
 
     return resp;
 }
-
+//Adiciona ponto no endereço binário, para ter maior legibilidade
 function ponto(bin)
 {
 	let resp = '';
