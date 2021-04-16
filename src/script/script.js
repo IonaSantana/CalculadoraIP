@@ -51,134 +51,7 @@ function calcula()
 				alert("Números 0 e 1 permitidos!");
 			}else
 			{
-				//Descobrir de que classe é
-				classe(primeira);
-				//alert("Deu certo!");
-				//Deu certo, agora verificamos as máscaras de rede e de subrede 
-				var masc = document.getElementById('masc');
-				var mascSub = document.getElementById('mascSub');
-
-				var valuem = masc.options[masc.selectedIndex].value;
-				
-				var valuesub = mascSub.options[mascSub.selectedIndex].value;
-
-				//Aqui veremos se o usuário escolheu as máscaras
-				if (valuem!=0) 
-				{						
-					var IP = primeira + segundo + terceiro + quarto;
-					// Visivel para quem é de fora
-					let rede = document.getElementById('rede1');
-					let broad = document.getElementById('broad1');
-					let primHost = document.getElementById('primeiro1');
-					let ultHost = document.getElementById('ultimo1');
-					let qtsHosts = document.getElementById('qtHost');
-					
-					//Sem subrede								
-					//Endereço de rede -> Endereço do primeiro host
-					// Calculo do Endereço de rede
-					var endRede = enderecorede(IP, valuem);
-					rede.innerHTML = endRede + " ------------------ " + bindec(endRede);
-
-					//Calculo do endereço do primeiro host
-					var primeiroHost = primeiroEnd(endRede);
-					primHost.innerHTML = primeiroHost + " ------------------ " + bindec(primeiroHost);
-					//Endereço de broacast -> Endereço do último host
-					// Calculo do Endereço de broadcast			
-					var endBroad = enderecobroad(IP, valuem);
-				    broad.innerHTML = endBroad + " ------------------ " + bindec(endBroad);
-
-				    //Calculo do endereço do ultimo host
-					var ultimoHost = ultimoEnd(endBroad);
-					ultHost.innerHTML = ultimoHost + " ------------------ " + bindec(ultimoHost);
-
-					//Hosts possíveis da rede
-					var qts = qtsHost(32-valuem);
-					qtsHosts.innerHTML = qts-2 +`</br>` +`</br>`;
-					
-					if (valuesub!=0) 
-					{		
-						//Com subrede
-						if (valuesub >= valuem) 
-						{
-							let subredeImprime = document.getElementById('subrede');
-							let subdecImprime = document.getElementById('subdec');
-							var imprime = '', imprimedec = '';
-							
-							//Endereço de rede -> Endereço do primeiro host
-							// Calculo do Endereço de rede da primeira subrede
-							var endRede = enderecorede(IP, valuem);
-							var endRedeSub = enderecorede(endRede, valuesub).toString();
-							imprime = imprime + "Endereço subrede " + endRedeSub +`</br>` +`</br>`;
-							imprimedec = imprimedec + "Endereço subrede " + bindec(endRedeSub).toString() +`</br>` +`</br>`;
-							//Calculo do endereço do primeiro host
-							var primeiroHost = primeiroEnd(endRedeSub).toString();
-						    imprime = imprime + "Primeiro endereço de host " + primeiroHost +`</br>` +`</br>`;
-							imprimedec = imprimedec + "Primeiro endereço de host " + bindec(primeiroHost).toString() +`</br>` +`</br>`;
-							//Calculo do broadcast
-							var endBroad = enderecobroad(endRedeSub, valuesub).toString();
-
-							//Calculo do endereço do ultimo host
-							var ultimoHost = ultimoEnd(endBroad).toString();
-							
-						    imprime = imprime + "Último endereço de host " + ultimoHost +`</br>` +`</br>`;
-					   	    imprime = imprime + "Endereço de broacast " + endBroad +`</br>` +`</br>`;
-							
-							imprimedec = imprimedec + "Último endereço de host " + bindec(ultimoHost).toString() +`</br>` +`</br>`;
-							imprimedec = imprimedec + "Endereço de broacast " + bindec(endBroad).toString() +`</br>` +`</br>`;
-					   		//Quantidade de hosts válidos na subrede
-							var qts = parseInt(qtsHost(32-valuesub));
-							var qtsTotal = parseInt(qtsHost(32 -valuem));
-							
-							var numSubredes = qtsTotal/qts;
-							var  q = '';
-							qts = qts-2;
-							q = qts.toString();
-							imprime = imprime + "Quantidade de host disponível na subrede " + q +`</br>` +`</br>`;
-							imprime = imprime +`</br>` +`</br>`; 
-
-							imprimedec = imprimedec + "Quantidade de host disponível na subrede "  + q +`</br>` +`</br>`;
-							imprimedec = imprimedec +`</br>` +`</br>`; 
-
-							numSubredes = numSubredes - 1;
-							
-							for (var i = 0; i < numSubredes; i++) 
-							{							
-								endRedeSub = primeiroEnd(endBroad, valuesub).toString();
-								imprime = imprime + "Endereço subrede" + endRedeSub +`</br>` +`</br>`;
-								imprimedec = imprimedec + "Endereço subrede" + bindec(endRedeSub).toString() +`</br>` +`</br>`;
-								
-								primeiroHost = primeiroEnd(endRedeSub).toString();
-								imprime = imprime + "Primeiro endereço de host " + primeiroHost +`</br>` +`</br>`;
-								imprimedec = imprimedec + "Primeiro endereço de host " + bindec(primeiroHost).toString() +`</br>` +`</br>`;
-
-								//Calculo do broadcast
-								var endBroad = enderecobroad(endRedeSub, valuesub).toString();
-
-								//Calculo do endereço do ultimo host
-								var ultimoHost = ultimoEnd(endBroad).toString();
-							
-								imprime = imprime + "Último endereço de host" + ultimoHost +`</br>` +`</br>`;
-					   			imprime = imprime + "Endereço de broacast" + endBroad +`</br>` +`</br>`;
-
-					   			imprimedec = imprimedec + "Último endereço de host " + bindec(ultimoHost).toString() +`</br>` +`</br>`;
-								imprimedec = imprimedec + "Endereço de broacast " + bindec(endBroad).toString() +`</br>` +`</br>`;
-				
-						   		// Quantidade de hosts válidos na subrede
-								imprime = imprime + "Quantidade de host disponível na subrede " + q +`</br>` +`</br>`;
-								imprime = imprime +`</br>` +`</br>`; 
-								imprimedec = imprimedec + "Quantidade de host disponível na subrede "  + q +`</br>` +`</br>`;
-								imprimedec = imprimedec +`</br>` +`</br>`;		
-							}
-							
-							subredeImprime.innerHTML = imprime;
-							subdec.innerHTML = imprimedec;
-
-						}else
-						{
-							alert("Mais endereço do que você tem");
-						}	
-					}
-				}
+				resposta(primeira,segundo,terceiro,quarto);
 			}
 		}else
 		{
@@ -201,131 +74,7 @@ function calcula()
 			var terceiro = decbin(validater).toString();
 			var quarto = decbin(validaquar).toString();
 
-			//Descobrir de que classe é
-			classe(primeira);
-			
-			//Deu certo, agora verificamos as máscaras de rede e de subrede 
-			let masc = document.getElementById('masc');
-			let mascSub = document.getElementById('mascSub');
-
-			let valuem = masc.options[masc.selectedIndex].value;
-			
-			let valuesub = mascSub.options[mascSub.selectedIndex].value;
-			alert("Deu certo!");
-			//Aqui veremos se o usuário escolheu as máscaras
-			if (valuem!=0) 
-			{						
-				var IP = primeira + segundo + terceiro + quarto;
-				var IP = primeira + segundo + terceiro + quarto;
-				// Visivel para quem é de fora
-				let rede = document.getElementById('rede1');
-				let broad = document.getElementById('broad1');
-				let primHost = document.getElementById('primeiro1');
-				let ultHost = document.getElementById('ultimo1');
-				let qtsHosts = document.getElementById('qtHost');
-				
-				//Sem subrede								
-				//Endereço de rede -> Endereço do primeiro host
-				// Calculo do Endereço de rede
-				var endRede = enderecorede(IP, valuem);
-				rede.innerHTML = endRede + " ------------------ " + bindec(endRede);
-
-				//Calculo do endereço do primeiro host
-				var primeiroHost = primeiroEnd(endRede);
-				primHost.innerHTML = primeiroHost + " ------------------ " + bindec(primeiroHost);
-				//Endereço de broacast -> Endereço do último host
-				// Calculo do Endereço de broadcast			
-				var endBroad = enderecobroad(IP, valuem);
-			    broad.innerHTML = endBroad + " ------------------ " + bindec(endBroad);
-
-			    //Calculo do endereço do ultimo host
-				var ultimoHost = ultimoEnd(endBroad);
-				ultHost.innerHTML = ultimoHost + " ------------------ " + bindec(ultimoHost);
-
-				//Hosts possíveis da rede
-				var qts = qtsHost(32-valuem);
-				qtsHosts.innerHTML = qts-2 +`</br>` +`</br>`;
-				
-				if (valuesub!=0) 
-				{
-					//Com subrede
-					if (valuesub >= valuem) 
-					{
-						let subredeImprime = document.getElementById('subrede');
-						let subdecImprime = document.getElementById('subdec');
-						var imprime = '', imprimedec = '';
-						
-						//Endereço de rede -> Endereço do primeiro host
-						// Calculo do Endereço de rede da primeira subrede
-						var endRede = enderecorede(IP, valuem);
-						var endRedeSub = enderecorede(endRede, valuesub).toString();
-						imprime = imprime + "Endereço subrede " + endRedeSub +`</br>` +`</br>`;
-						imprimedec = imprimedec + "Endereço subrede " + bindec(endRedeSub).toString() +`</br>` +`</br>`;
-						//Calculo do endereço do primeiro host
-						var primeiroHost = primeiroEnd(endRedeSub).toString();
-					    imprime = imprime + "Primeiro endereço de host " + primeiroHost +`</br>` +`</br>`;
-						imprimedec = imprimedec + "Primeiro endereço de host " + bindec(primeiroHost).toString() +`</br>` +`</br>`;
-						//Calculo do broadcast
-						var endBroad = enderecobroad(endRedeSub, valuesub).toString();
-
-						//Calculo do endereço do ultimo host
-						var ultimoHost = ultimoEnd(endBroad).toString();
-						
-					    imprime = imprime + "Último endereço de host " + ultimoHost +`</br>` +`</br>`;
-				   	    imprime = imprime + "Endereço de broacast " + endBroad +`</br>` +`</br>`;
-						
-						imprimedec = imprimedec + "Último endereço de host " + bindec(ultimoHost).toString() +`</br>` +`</br>`;
-						imprimedec = imprimedec + "Endereço de broacast " + bindec(endBroad).toString() +`</br>` +`</br>`;
-				   		//Quantidade de hosts válidos na subrede
-						var qts = parseInt(qtsHost(32-valuesub));
-						var qtsTotal = parseInt(qtsHost(32 -valuem));
-						
-						var numSubredes = qtsTotal/qts;
-						var  q = '';
-						qts = qts-2;
-						q = qts.toString();
-						imprime = imprime + "Quantidade de host disponível na subrede " + q +`</br>` +`</br>`;
-						imprime = imprime +`</br>` +`</br>`; 
-
-						imprimedec = imprimedec + "Quantidade de host disponível na subrede "  + q +`</br>` +`</br>`;
-						imprimedec = imprimedec +`</br>` +`</br>`; 
-
-						numSubredes = numSubredes - 1;
-						
-						for (var i = 0; i < numSubredes; i++) 
-						{							
-							endRedeSub = primeiroEnd(endBroad, valuesub).toString();
-							imprime = imprime + "Endereço subrede" + endRedeSub +`</br>` +`</br>`;
-							imprimedec = imprimedec + "Endereço subrede" + bindec(endRedeSub).toString() +`</br>` +`</br>`;
-							
-							primeiroHost = primeiroEnd(endRedeSub).toString();
-							imprime = imprime + "Primeiro endereço de host " + primeiroHost +`</br>` +`</br>`;
-							imprimedec = imprimedec + "Primeiro endereço de host " + bindec(primeiroHost).toString() +`</br>` +`</br>`;
-
-							//Calculo do broadcast
-							var endBroad = enderecobroad(endRedeSub, valuesub).toString();
-
-							//Calculo do endereço do ultimo host
-							var ultimoHost = ultimoEnd(endBroad).toString();
-						
-							imprime = imprime + "Último endereço de host" + ultimoHost +`</br>` +`</br>`;
-				   			imprime = imprime + "Endereço de broacast" + endBroad +`</br>` +`</br>`;
-
-				   			imprimedec = imprimedec + "Último endereço de host " + bindec(ultimoHost).toString() +`</br>` +`</br>`;
-							imprimedec = imprimedec + "Endereço de broacast " + bindec(endBroad).toString() +`</br>` +`</br>`;
-			
-					   		// Quantidade de hosts válidos na subrede
-							imprime = imprime + "Quantidade de host disponível na subrede " + q +`</br>` +`</br>`;
-							imprime = imprime +`</br>` +`</br>`; 
-							imprimedec = imprimedec + "Quantidade de host disponível na subrede "  + q +`</br>` +`</br>`;
-							imprimedec = imprimedec +`</br>` +`</br>`;		
-						}
-						
-						subredeImprime.innerHTML = imprime;
-						subdec.innerHTML = imprimedec;
-					}	
-				}	
-			}	
+			resposta(primeira,segundo,terceiro,quarto);
 
 		}else
 		{
@@ -333,7 +82,137 @@ function calcula()
 		}
 	}
 }
+function resposta(primeira,segundo,terceiro,quarto)
+{
+	//Descobrir de que classe é
+	classe(primeira);
+	//alert("Deu certo!");
+	//Deu certo, agora verificamos as máscaras de rede e de subrede 
+	var masc = document.getElementById('masc');
+	var mascSub = document.getElementById('mascSub');
 
+	var valuem = masc.options[masc.selectedIndex].value;
+	
+	var valuesub = mascSub.options[mascSub.selectedIndex].value;
+
+	//Aqui veremos se o usuário escolheu as máscaras
+	if (valuem!=0) 
+	{						
+		var IP = primeira + segundo + terceiro + quarto;
+		// Visivel para quem é de fora
+		let rede = document.getElementById('rede1');
+		let broad = document.getElementById('broad1');
+		let primHost = document.getElementById('primeiro1');
+		let ultHost = document.getElementById('ultimo1');
+		let qtsHosts = document.getElementById('qtHost');
+		
+		//Sem subrede								
+		//Endereço de rede -> Endereço do primeiro host
+		// Calculo do Endereço de rede
+		var endRede = enderecorede(IP, valuem);
+		rede.innerHTML = endRede + " ------------------ " + bindec(endRede);
+
+		//Calculo do endereço do primeiro host
+		var primeiroHost = primeiroEnd(endRede);
+		primHost.innerHTML = primeiroHost + " ------------------ " + bindec(primeiroHost);
+		//Endereço de broacast -> Endereço do último host
+		// Calculo do Endereço de broadcast			
+		var endBroad = enderecobroad(IP, valuem);
+	    broad.innerHTML = endBroad + " ------------------ " + bindec(endBroad);
+
+	    //Calculo do endereço do ultimo host
+		var ultimoHost = ultimoEnd(endBroad);
+		ultHost.innerHTML = ultimoHost + " ------------------ " + bindec(ultimoHost);
+
+		//Hosts possíveis da rede
+		var qts = qtsHost(32-valuem);
+		qtsHosts.innerHTML = qts-2 +`</br>` +`</br>`;
+		
+		if (valuesub!=0) 
+		{		
+			//Com subrede
+			if (valuesub >= valuem) 
+			{
+				let subredeImprime = document.getElementById('subrede');
+				let subdecImprime = document.getElementById('subdec');
+				var imprime = '', imprimedec = '';
+				
+				//Endereço de rede -> Endereço do primeiro host
+				// Calculo do Endereço de rede da primeira subrede
+				var endRede = enderecorede(IP, valuem);
+				var endRedeSub = enderecorede(endRede, valuesub).toString();
+				imprime = imprime + "Endereço subrede " + endRedeSub +`</br>` +`</br>`;
+				imprimedec = imprimedec + "Endereço subrede " + bindec(endRedeSub).toString() +`</br>` +`</br>`;
+				//Calculo do endereço do primeiro host
+				var primeiroHost = primeiroEnd(endRedeSub).toString();
+			    imprime = imprime + "Primeiro endereço de host " + primeiroHost +`</br>` +`</br>`;
+				imprimedec = imprimedec + "Primeiro endereço de host " + bindec(primeiroHost).toString() +`</br>` +`</br>`;
+				//Calculo do broadcast
+				var endBroad = enderecobroad(endRedeSub, valuesub).toString();
+
+				//Calculo do endereço do ultimo host
+				var ultimoHost = ultimoEnd(endBroad).toString();
+				
+			    imprime = imprime + "Último endereço de host " + ultimoHost +`</br>` +`</br>`;
+		   	    imprime = imprime + "Endereço de broacast " + endBroad +`</br>` +`</br>`;
+				
+				imprimedec = imprimedec + "Último endereço de host " + bindec(ultimoHost).toString() +`</br>` +`</br>`;
+				imprimedec = imprimedec + "Endereço de broacast " + bindec(endBroad).toString() +`</br>` +`</br>`;
+		   		//Quantidade de hosts válidos na subrede
+				var qts = parseInt(qtsHost(32-valuesub));
+				var qtsTotal = parseInt(qtsHost(32 -valuem));
+				
+				var numSubredes = qtsTotal/qts;
+				var  q = '';
+				qts = qts-2;
+				q = qts.toString();
+				imprime = imprime + "Quantidade de host disponível na subrede " + q +`</br>` +`</br>`;
+				imprime = imprime +`</br>` +`</br>`; 
+
+				imprimedec = imprimedec + "Quantidade de host disponível na subrede "  + q +`</br>` +`</br>`;
+				imprimedec = imprimedec +`</br>` +`</br>`; 
+
+				numSubredes = numSubredes - 1;
+				
+				for (var i = 0; i < numSubredes; i++) 
+				{							
+					endRedeSub = primeiroEnd(endBroad, valuesub).toString();
+					imprime = imprime + "Endereço subrede" + endRedeSub +`</br>` +`</br>`;
+					imprimedec = imprimedec + "Endereço subrede" + bindec(endRedeSub).toString() +`</br>` +`</br>`;
+					
+					primeiroHost = primeiroEnd(endRedeSub).toString();
+					imprime = imprime + "Primeiro endereço de host " + primeiroHost +`</br>` +`</br>`;
+					imprimedec = imprimedec + "Primeiro endereço de host " + bindec(primeiroHost).toString() +`</br>` +`</br>`;
+
+					//Calculo do broadcast
+					var endBroad = enderecobroad(endRedeSub, valuesub).toString();
+
+					//Calculo do endereço do ultimo host
+					var ultimoHost = ultimoEnd(endBroad).toString();
+				
+					imprime = imprime + "Último endereço de host " + ultimoHost +`</br>` +`</br>`;
+		   			imprime = imprime + "Endereço de broacast " + endBroad +`</br>` +`</br>`;
+
+		   			imprimedec = imprimedec + "Último endereço de host " + bindec(ultimoHost).toString() +`</br>` +`</br>`;
+					imprimedec = imprimedec + "Endereço de broacast " + bindec(endBroad).toString() +`</br>` +`</br>`;
+	
+			   		// Quantidade de hosts válidos na subrede
+					imprime = imprime + "Quantidade de host disponível na subrede " + q +`</br>` +`</br>`;
+					imprime = imprime +`</br>` +`</br>`; 
+					imprimedec = imprimedec + "Quantidade de host disponível na subrede "  + q +`</br>` +`</br>`;
+					imprimedec = imprimedec +`</br>` +`</br>`;		
+				}
+				
+				subredeImprime.innerHTML = imprime;
+				subdec.innerHTML = imprimedec;
+			}else
+			{
+				alert("Mais endereço do que você tem");
+			}
+		}
+	}			
+
+}
 //Descobre de que classe o IPV4 é
 function classe(primeira)
 {
