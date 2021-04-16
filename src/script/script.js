@@ -130,27 +130,27 @@ function resposta(primeira,segundo,terceiro,quarto)
 			//Com subrede
 			if (valuesub >= valuem) 
 			{
-				console.log(typeof valuesub)
-				console.log(typeof valuem)
-				//alert("aaaaa")
+				// console.log(typeof valuesub)
+				// console.log(typeof valuem)
+				alert("aaaaa")
 				
 				let imprime = '', imprimedec = '';
 				
 				//Endereço de rede -> Endereço do primeiro host
 				// Calculo do Endereço de rede da primeira subrede
-				let endRede = enderecorede(IP, valuem);
+				endRede = enderecorede(IP, valuem);
 				let endRedeSub = enderecorede(endRede, valuesub).toString();
 				imprime = imprime + "Endereço subrede " + ponto(endRedeSub) +`</br>` +`</br>`;
 				imprimedec = imprimedec + "Endereço subrede " + bindec(endRedeSub).toString() +`</br>` +`</br>`;
 				//Calculo do endereço do primeiro host
-				let primeiroHost = primeiroEnd(endRedeSub).toString();
+				primeiroHost = primeiroEnd(endRedeSub).toString();
 			    imprime = imprime + "Primeiro endereço de host " + ponto(primeiroHost) +`</br>` +`</br>`;
 				imprimedec = imprimedec + "Primeiro endereço de host " + bindec(primeiroHost).toString() +`</br>` +`</br>`;
 				//Calculo do broadcast
-				let endBroad = enderecobroad(endRedeSub, valuesub).toString();
+				endBroad = enderecobroad(endRedeSub, valuesub).toString();
 
 				//Calculo do endereço do ultimo host
-				let ultimoHost = ultimoEnd(endBroad).toString();
+				ultimoHost = ultimoEnd(endBroad).toString();
 				
 			    imprime = imprime + "Último endereço de host " + ponto(ultimoHost) +`</br>` +`</br>`;
 		   	    imprime = imprime + "Endereço de broacast " + ponto(endBroad) +`</br>` +`</br>`;
@@ -174,7 +174,8 @@ function resposta(primeira,segundo,terceiro,quarto)
 				numSubredes = numSubredes - 1;
 				
 				for (let i = 0; i < numSubredes; i++) 
-				{							
+				{	
+					console.log(endBroad)					
 					endRedeSub = primeiroEnd(endBroad, valuesub).toString();
 					imprime = imprime + "Endereço subrede" + ponto(endRedeSub) +`</br>` +`</br>`;
 					imprimedec = imprimedec + "Endereço subrede" + bindec(endRedeSub).toString() +`</br>` +`</br>`;
@@ -184,10 +185,10 @@ function resposta(primeira,segundo,terceiro,quarto)
 					imprimedec = imprimedec + "Primeiro endereço de host " + bindec(primeiroHost).toString() +`</br>` +`</br>`;
 
 					//Calculo do broadcast
-					let endBroad = enderecobroad(endRedeSub, valuesub).toString();
+					endBroad = enderecobroad(endRedeSub, valuesub).toString();
 
 					//Calculo do endereço do ultimo host
-					let ultimoHost = ultimoEnd(endBroad).toString();
+					ultimoHost = ultimoEnd(endBroad).toString();
 				
 					imprime = imprime + "Último endereço de host " + ponto(ultimoHost) +`</br>` +`</br>`;
 		   			imprime = imprime + "Endereço de broacast " + ponto(endBroad) +`</br>` +`</br>`;
@@ -204,7 +205,7 @@ function resposta(primeira,segundo,terceiro,quarto)
 				
 				subredeImprime.innerHTML = imprime;
 				subdecImprime.innerHTML = imprimedec;
-				
+								
 			}else
 			{
 				alert("Mais endereço do que você tem");
@@ -239,42 +240,42 @@ function classe(primeira)
 
 }
 // Calcula o endereço da rede
-function enderecorede(IP, valuem)
+function enderecorede(IP, valuem1)
 {
-	let endRede = '';
+	let endRede1 = '';
 						
-	for (let i = 0; i < valuem; i++) 
+	for (let i = 0; i < valuem1; i++) 
 	{
-		endRede = endRede + IP[i];
+		endRede1 = endRede1 + IP[i];
 	}	
 
-	for (let i = valuem; i < 32; i++) 
+	for (let i = valuem1; i < 32; i++) 
 	{
-		endRede = endRede + '0';
+		endRede1 = endRede1 + '0';
 	}
-	return endRede;
+	return endRede1;
 }
 // Calcula o endereco de broadcast
-function enderecobroad(IP, valuem)
+function enderecobroad(IP, valuem1)
 {
-	let endBroad = '';
+	let endBroad1 = '';
 						
-	for (let i = 0; i < valuem; i++) 
+	for (let i = 0; i < valuem1; i++) 
 	{
-		endBroad = endBroad + IP[i];
+		endBroad1 = endBroad1 + IP[i];
 	}	
 
-	for (let i = valuem; i < 32; i++) 
+	for (let i = valuem1; i < 32; i++) 
 	{
-		endBroad = endBroad + '1';
+		endBroad1 = endBroad1 + '1';
 	}	
 
-	return endBroad;
+	return endBroad1;
 }
 
 function primeiroEnd(rede)
 {
-	let sobe = 1, primeiro = '';
+	let sobe = 1, primeiro1 = '';
 
 	for (let i = 31; i >= 0; i--) 
 	{
@@ -282,19 +283,19 @@ function primeiroEnd(rede)
 		{
 			if (rede[i] == '1') 
 			{
-				primeiro = '0' + primeiro;
+				primeiro1 = '0' + primeiro1;
 			
 			}else
 			{
-				primeiro = '1' + primeiro;
+				primeiro1 = '1' + primeiro1;
 				sobe = 0;
 			}
 		}else
 		{
-			primeiro = rede[i] + primeiro;
+			primeiro1 = rede[i] + primeiro1;
 		}
 	}
-	return primeiro;
+	return primeiro1;
 }
 
 function ultimoEnd(broacast)
@@ -312,13 +313,13 @@ function ultimoEnd(broacast)
 
 function qtsHost(valuem)
 {
-	let qts = 1, mult = 1;
+	let qts1 = 1, mult = 1;
 	for (let i = 0; i < valuem; i++) 
 	{
-		qts = qts + mult;
+		qts1 = qts1 + mult;
 		mult = mult * 2;
 	}
-	return qts;
+	return qts1;
 }
 
 function decbin(num)
