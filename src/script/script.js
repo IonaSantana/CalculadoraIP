@@ -343,20 +343,22 @@ function decbin(num)
 
 function bindec(num)
 {
-	let resp = '';
-	let n = 0, mult = 1;
-	for (let i = 31; i >=0; i--) 
-	{	
-		if (i%8 == 0) 
-		{
-			resp = n.toString() + '.' + resp;
-			n = 0, mult = 1;
-		}
-		n = n + mult*parseInt(num[i]);
-		mult = mult * 2;		
-	}
+    
+    let aux = '', resp= "";
+    let n = 0, mult = 1;
+    for (let i = 31; i >=0; i--) 
+    {
+        aux = num[i] + aux;    
+        if ((i)%8 == 0) 
+        {
+            resp = parseInt(aux,2).toString() + "." + resp
+            console.log(resp)
+            aux = ""
+        }
+                 
+    }
 
-	return resp;
+    return resp;
 }
 
 function ponto(bin)
