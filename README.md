@@ -18,5 +18,5 @@ Endereço do ultimo host em decimal e em binário;
 
 Quantidade de hosts possíveis na sub-rede;
 
-Link para acesso da calculadora:
+<b>Link para acesso:</b> 
 https://ionasantana.github.io/CalculadoraIP/
