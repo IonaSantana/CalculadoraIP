@@ -92,7 +92,6 @@ function resposta(primeira,segundo,terceiro,quarto)
 	var mascSub = document.getElementById('mascSub');
 
 	var valuem = masc.options[masc.selectedIndex].value;
-	
 	var valuesub = mascSub.options[mascSub.selectedIndex].value;
 
 	//Aqui veremos se o usuário escolheu as máscaras
