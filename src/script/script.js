@@ -77,19 +77,19 @@ function calcula()
 					//Endereço de rede -> Endereço do primeiro host
 					// Calculo do Endereço de rede
 					var endRede = enderecorede(IP, valuem);
-					rede.innerHTML = endRede;
+					rede.innerHTML = endRede + " ------------------ " + bindec(endRede);
 
 					//Calculo do endereço do primeiro host
 					var primeiroHost = primeiroEnd(endRede);
-					primHost.innerHTML = primeiroHost;
+					primHost.innerHTML = primeiroHost + " ------------------ " + bindec(primeiroHost);
 					//Endereço de broacast -> Endereço do último host
 					// Calculo do Endereço de broadcast			
 					var endBroad = enderecobroad(IP, valuem);
-				    broad.innerHTML = endBroad;
+				    broad.innerHTML = endBroad + " ------------------ " + bindec(endBroad);
 
 				    //Calculo do endereço do ultimo host
 					var ultimoHost = ultimoEnd(endBroad);
-					ultHost.innerHTML = ultimoHost;
+					ultHost.innerHTML = ultimoHost + " ------------------ " + bindec(ultimoHost);
 
 					//Hosts possíveis da rede
 					var qts = qtsHost(32-valuem);
@@ -228,23 +228,24 @@ function calcula()
 				//Endereço de rede -> Endereço do primeiro host
 				// Calculo do Endereço de rede
 				var endRede = enderecorede(IP, valuem);
-				rede.innerHTML = endRede;
+				rede.innerHTML = endRede + " ------------------ " + bindec(endRede);
 
 				//Calculo do endereço do primeiro host
 				var primeiroHost = primeiroEnd(endRede);
-				primHost.innerHTML = primeiroHost;
+				primHost.innerHTML = primeiroHost + " ------------------ " + bindec(primeiroHost);
 				//Endereço de broacast -> Endereço do último host
 				// Calculo do Endereço de broadcast			
 				var endBroad = enderecobroad(IP, valuem);
-			    broad.innerHTML = endBroad;
+			    broad.innerHTML = endBroad + " ------------------ " + bindec(endBroad);
 
 			    //Calculo do endereço do ultimo host
 				var ultimoHost = ultimoEnd(endBroad);
-				ultHost.innerHTML = ultimoHost;
+				ultHost.innerHTML = ultimoHost + " ------------------ " + bindec(ultimoHost);
 
 				//Hosts possíveis da rede
 				var qts = qtsHost(32-valuem);
 				qtsHosts.innerHTML = qts-2 +`</br>` +`</br>`;
+				
 				if (valuesub!=0) 
 				{
 					//Com subrede
@@ -467,7 +468,7 @@ function bindec(num)
 	var n = 0, mult = 1;
 	for (var i = 31; i >=0; i--) 
 	{	
-		if ((i + 1)%8 == 0 && i!=31) 
+		if (i%8 == 0) 
 		{
 			resp = n.toString() + '.' + resp;
 			n = 0, mult = 1;
@@ -475,5 +476,6 @@ function bindec(num)
 		n = n + mult*parseInt(num[i]);
 		mult = mult * 2;		
 	}
+
 	return resp;
 }
